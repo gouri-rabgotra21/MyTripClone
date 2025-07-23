@@ -1,5 +1,5 @@
 {
-  "name": "server",
+  "name": "mytrip-clone",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -7,7 +7,7 @@
     "test": "jest --runInBand"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gouri Rabgotra",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

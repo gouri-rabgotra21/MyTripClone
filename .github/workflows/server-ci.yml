@@ -1,0 +1,33 @@
+name: Backend CI + CD
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: server
+
+      - name: Run tests
+        run: npm test
+        working-directory: server
+        env:
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          JWT_SECRET: ${{ secrets.JWT_SECRET }}
+
+      - name: Deploy to Render (CD)
+        if: success()
+        run: curl -X POST ${{ secrets.RENDER_DEPLOY_HOOK }}
